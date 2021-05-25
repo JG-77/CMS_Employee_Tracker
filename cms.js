@@ -4,13 +4,17 @@ const inquirer = require('inquirer');
 const connection = mysql.createConnection({
   host: 'localhost',
 
- 
   port: 3306,
 
-  // Your username
   user: 'root',
 
-  // Be sure to update with your own MySQL password!
+  // MySQL password and database
   password: 'Je$ter7798$code',
-  database: '',
+  database: 'schema_DB',
+});
+
+connection.connect((err) => {
+  if (err) throw err;
+  console.log(`connected as id ${connection.threadId}`);
+  connection.end(); // move to end of prompt function
 });
