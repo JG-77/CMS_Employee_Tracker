@@ -71,7 +71,7 @@ SELECT * FROM department;
 SELECT * FROM role;
 SELECT * FROM employee;
 
-SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, employee.manager_id
+SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, employee.manager_id AS Manager
 FROM employee
 JOIN role ON employee.role_id = role.id 
 Join department ON role.department_id = department.id;
