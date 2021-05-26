@@ -68,7 +68,11 @@ INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES (9, 'Jesus', "Avila", 6, 3);
 
 SELECT * FROM department;
-
 SELECT * FROM role;
-
 SELECT * FROM employee;
+
+SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, employee.manager_id
+FROM employee
+JOIN role ON employee.role_id = role.id 
+Join department ON role.department_id = department.id;
+
