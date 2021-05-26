@@ -72,8 +72,14 @@ SELECT * FROM role;
 SELECT * FROM employee;
 
 SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, employee.manager_id AS Manager
-FROM employee
+FROM employee e
 JOIN role ON employee.role_id = role.id 
 JOIN department ON role.department_id = department.id
-LEFT JOIN employee ON employee.manager_id = employee.last_name; -- get manager ID to instead show Manager name
+LEFT JOIN employee e ON employee.id = e.manager_id; -- get manager ID to instead show Manager name
 
+-- 2nd method
+-- SELECT DISTINCT e1.id AS ID, e1.first_name AS First_name, e1.last_name AS Last_name, r.title AS Title, department.name AS Department, r.salary AS Salary, e1.manager_id AS Manager
+-- FROM employee e1, employee e2
+-- LEFT JOIN role r ON employee.role_id = r.id 
+-- LEFT JOIN department ON r.department_id = department.id
+-- LEFT JOIN employee e ON e1.id = e2.manager_id;
