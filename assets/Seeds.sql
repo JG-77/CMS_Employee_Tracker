@@ -1,4 +1,4 @@
-USE schema_DB;
+USE employee_DB;
 
 -- departments
 INSERT INTO department (id, name)

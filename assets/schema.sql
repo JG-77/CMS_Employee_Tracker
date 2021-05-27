@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS schema_DB;
+DROP DATABASE IF EXISTS employee_DB;
 
-CREATE DATABASE schema_DB;
+CREATE DATABASE employee_DB;
 
-USE schema_DB;
+USE employee_DB;
 
 CREATE TABLE department (
 id INT PRIMARY KEY NOT NULL,

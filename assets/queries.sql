@@ -1,4 +1,4 @@
-USE schema_DB;
+USE employee_DB;
 
 SELECT * FROM department;
 SELECT * FROM role;
