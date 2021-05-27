@@ -22,7 +22,25 @@ function start() {
     message: "What would you like to do?",
     choices: ['View all employees', 'View all employees by department', 'View all employees by manager', 'Add employee', 'Add department', 'Add role', 'Update employee role', 'QUIT'] 
     },
-  ]).then(response => {console.log(response)}).catch(err => {console.error(err)})
+  ]).then(response => {
+    if(response.choice === 'View all employees') {               
+      viewAllEmp();
+    } else if(response.choice === 'View all employees by department') {               
+      viewEmployeeByDept(); 
+    } else if(response.choice === 'View all employees by manager') {               
+      viewEmployeeByMan(); 
+    } else if(response.choice === 'Add employee') {               
+      addEmployee(); 
+    } else if(response.choice === 'Add department') {               
+      addDeptartment(); 
+    } else if(response.choice === 'Add role') {               
+      addRole(); 
+    } else if(response.choice === 'Update employee role') {               
+      updateRole(); 
+    }  else if(response.choice === 'QUIT') {               
+      connection.end(); 
+    }
+  })
 };
 
 connection.connect((err) => {
