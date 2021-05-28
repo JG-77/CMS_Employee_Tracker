@@ -85,12 +85,8 @@ function viewEmployeeByDept() {
               LEFT JOIN role on employee.role_id = role.id 
               LEFT JOIN department on role.department_id = department.id 
               LEFT JOIN employee manager ON manager.id = employee.manager_id
-              WHERE department.name != ?`, 
-              [
-                {
-                name: chosendept.name,
-                },
-              ],
+              WHERE department.name=?`, 
+                chosendept.name,
               (err, res) => {
             if (err) throw err;
             res.forEach(({ ID, First_name, Last_name, Department, Title, Salary, Manager }) => 
