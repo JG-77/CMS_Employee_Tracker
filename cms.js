@@ -46,11 +46,12 @@ function start() {
 
 function viewAllEmp() {
    const query =
-    'SELECT * FROM employee AND role.title FROM role LEFT JOIN role ON employee.role_id = role.id';
+    'SELECT * FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN employee manager ON manager.id = employee.manager_id'; //LEFT JOIN employee manager ON manager.id = employee.manager_id
   connection.query(query, (err, res) => {
     if (err) throw err;
-     res.forEach(({ id, first_name, last_name, title }) => 
-     console.log(`ID: ${id} || First Name: ${first_name} || Last Name: ${last_name} || Role Title: ${title}`));
+    console.log(res)
+     res.forEach(({ id, first_name, last_name, title, salary, manager_id }) => 
+     console.log(`ID: ${id} || First Name: ${first_name} || Last Name: ${last_name} || Role Title: ${title} || Salary: ${salary} || Manager: ${manager_id}`));
     start();
   })
 };
