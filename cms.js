@@ -82,7 +82,10 @@ function viewEmployeeByDept() {
             chosendept = dept;
             connection.query( `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
               FROM employee 
-              LEFT JOIN role on employee.role_id = role.id LEFT JOIN department department on role.department_id = department.id WHERE department.name = ?`, 
+              LEFT JOIN role on employee.role_id = role.id 
+              LEFT JOIN department on role.department_id = department.id 
+              LEFT JOIN employee manager ON manager.id = employee.manager_id
+              WHERE department.name != ?`, 
               [
                 {
                 name: response.dept,
