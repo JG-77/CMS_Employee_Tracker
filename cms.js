@@ -230,7 +230,7 @@ function addRole() {
 
 // Updates a specific role for an employee
 function updateRole() {
-  connection.query('SELECT * FROM employee', (err, results) => {
+  connection.query(`SELECT *, CONCAT (employee.last_name, ', ', employee.first_name) AS Full_name FROM employee `, (err, results) => {
     if (err) throw err;
   inquirer.prompt([
     {
@@ -238,8 +238,9 @@ function updateRole() {
     type: 'rawlist',
     choices() {
     const employeeArray = [];
-    results.forEach((first_name, last_name ) => {
-    employeeArray.push(first_name, last_name); //how to combine last and first name?
+    
+    results.forEach(({Full_name}) => {
+    employeeArray.push(Full_name); //how to combine last and first name?
     });
     return employeeArray;
     },
@@ -251,8 +252,34 @@ function updateRole() {
     message: "What is the this employee's new role ID number?",
     },
   ])
-});
+  .then((response) => {
+        let chosenemployee;
+        results.forEach((empl) => {
+          if (empl.Full_name === response.emp) {
+            chosenemployee = empl;
+            console.log(chosenemployee);
+          }
+        });
+          if(chosenemployee.role_id === response.roleid)
+            connection.query('UPDATE employee SET ? WHERE ?',
+              [
+              {
+                role_id: response.roleid,
+              },
+              {
+                Full_name: chosenemployee.emp,
+              },
+            ],
+            (error) => {
+              if (error) throw err;
+              console.log(`Employee's role successfully!`);
+              start();
+         }
+        )
+      });
+  });
 };
+
 
 connection.connect((err) => {
   if (err) throw err;
