@@ -61,9 +61,32 @@ function viewAllEmp() {
 };
 
 function viewEmployeeByDept() {
-  inquirer.prompt([
+  connection.query('SELECT * FROM department', (err, results) => {
+    if (err) throw err;
+    inquirer.prompt([
+       {
+          name: 'dept',
+          type: 'rawlist',
+          choices() {
+            const deptArray = [];
+            results.forEach(({ name }) => {
+              deptArray.push(name);
+            });
+            return deptArray;
+          },
+          message: 'What Department would you like to view?',
+        }
+    ])
+    .then((response) => {
+        let chosendept;
+        results.forEach((dept) => {
+          if (dept.name === response.dept) {
+            chosendept = dept;
+          }
+        });
+    });
 
-  ])
+  });
 };
 
 function viewEmployeeByMan() {
