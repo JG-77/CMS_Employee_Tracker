@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/JG-77/CMS_Employee_Tracker#readme",
   "dependencies": {
+    "console.table": "^0.10.0",
     "inquirer": "^8.1.0",
     "mysql": "^2.18.1"
   }

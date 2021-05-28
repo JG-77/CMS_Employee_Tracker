@@ -1,6 +1,6 @@
 const mysql = require('mysql'); 
 const inquirer = require('inquirer');
-
+const cTable = require('console.table');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -22,7 +22,7 @@ function start() {
     name: 'choice',
     message: "What would you like to do?",
     choices: ['View all employees', 'View all employees by department', 'View all employees by manager', 'Add employee', 'Add department', 'Add role', 'Update employee role', 'QUIT'] 
-    },
+    }
   ]).then(response => {
     if(response.choice === 'View all employees') {               
       viewAllEmp();
@@ -45,9 +45,14 @@ function start() {
 };
 
 function viewAllEmp() {
-  inquirer.prompt([
-
-  ])
+   const query =
+    'SELECT * FROM employee';
+  connection.query(query, (err, res) => {
+    if (err) throw err;
+     res.forEach(({ id, first_name, last_name, role_id }) => 
+     console.log(`ID: ${id} || First Name: ${first_name} || Last Name: ${last_name} || Role ID: ${role_id}`));
+    start();
+  })
 };
 
 function viewEmployeeByDept() {
