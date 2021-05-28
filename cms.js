@@ -261,7 +261,7 @@ function updateRole() {
             console.log(results);
           }
         });
-          // if(chosenemployee.role_id == response.roleid) //get matching id here
+          // if(chosenemployee.role_id == response.roleid) //find way to pass id
           //   connection.query('UPDATE employee SET ? WHERE ?',
           //     [
           //     {
