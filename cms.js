@@ -45,15 +45,13 @@ function start() {
 };
 
 function viewAllEmp() {
-   const query =
-    `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
+  const query = `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
     FROM employee 
     LEFT JOIN role ON employee.role_id = role.id 
     LEFT JOIN department ON role.department_id = department.id
     LEFT JOIN employee manager ON manager.id = employee.manager_id;`;
   connection.query(query, (err, res) => {
     if (err) throw err;
-    console.log(res)
      res.forEach(({ ID, First_name, Last_name, Title, Salary, Manager }) => 
      console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Role Title: ${Title} || Salary: ${Salary} || Manager: ${Manager}`));
     start();
@@ -82,10 +80,27 @@ function viewEmployeeByDept() {
         results.forEach((dept) => {
           if (dept.name === response.dept) {
             chosendept = dept;
+            connection.query( `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
+              FROM employee 
+              LEFT JOIN role ON employee.role_id = role.id 
+              LEFT JOIN department ON role.department_id = department.id
+              LEFT JOIN employee manager ON manager.id = employee.manager_id;
+              WHERE ?`, 
+              [
+                {
+                name: response.dept,
+                },
+              ],
+              (err, res) => {
+            if (err) throw err;
+            console.log(res)
+            res.forEach(({ ID, First_name, Last_name, Title, Salary, Manager }) => 
+            console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Role Title: ${Title} || Salary: ${Salary} || Manager: ${Manager}`));
+            start();
+            })
           }
         });
     });
-
   });
 };
 
