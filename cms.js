@@ -44,6 +44,7 @@ function start() {
   })
 };
 
+// Displays all employees
 function viewAllEmp() {
   const query = `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
     FROM employee 
@@ -58,6 +59,7 @@ function viewAllEmp() {
   })
 };
 
+// Displays employees in specific department
 function viewEmployeeByDept() {
   connection.query('SELECT * FROM department', (err, results) => {
     if (err) throw err;
@@ -99,12 +101,14 @@ function viewEmployeeByDept() {
   });
 };
 
+// Displays employees by manager
 function viewEmployeeByMan() {
   inquirer.prompt([
     
   ])
 };
 
+// Adds new employee
 function addEmployee() {
   inquirer.prompt([
     {
@@ -152,6 +156,7 @@ function addEmployee() {
   })
 };
 
+// Adds new department
 function addDeptartment() {
   inquirer.prompt([
     {
@@ -181,6 +186,7 @@ function addDeptartment() {
   })
 };
 
+// Adds new role
 function addRole() {
   inquirer.prompt([
     {
@@ -222,10 +228,30 @@ function addRole() {
   })
 };
 
+// Updates a specific role for an employee
 function updateRole() {
+  connection.query('SELECT * FROM employee', (err, results) => {
+    if (err) throw err;
   inquirer.prompt([
-
+    {
+    name: 'emp',
+    type: 'rawlist',
+    choices() {
+    const employeeArray = [];
+    results.forEach((first_name, last_name ) => {
+    employeeArray.push(first_name, last_name); //how to combine last and first name?
+    });
+    return employeeArray;
+    },
+    message: `Which employee's role would you like to edit?`,
+    },
+    {
+    type: 'input', 
+    name: 'roleid',
+    message: "What is the this employee's new role ID number?",
+    },
   ])
+});
 };
 
 connection.connect((err) => {
