@@ -257,25 +257,26 @@ function updateRole() {
         results.forEach((empl) => {
           if (empl.Full_name === response.emp) {
             chosenemployee = empl;
-            console.log(chosenemployee);
+            console.log(chosenemployee); //what's bugged here
+            console.log(results);
           }
         });
-          if(chosenemployee.role_id === response.roleid)
-            connection.query('UPDATE employee SET ? WHERE ?',
-              [
-              {
-                role_id: response.roleid,
-              },
-              {
-                Full_name: chosenemployee.emp,
-              },
-            ],
+          // if(chosenemployee.role_id == response.roleid) //get matching id here
+          //   connection.query('UPDATE employee SET ? WHERE ?',
+          //     [
+          //     {
+          //       role_id: response.roleid,
+          //     },
+          //     {
+          //       Full_name: chosenemployee.emp,
+          //     },
+          //   ],
             (error) => {
               if (error) throw err;
               console.log(`Employee's role successfully!`);
               start();
          }
-        )
+       // )
       });
   });
 };
