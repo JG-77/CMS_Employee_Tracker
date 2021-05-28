@@ -154,14 +154,72 @@ function addEmployee() {
 
 function addDeptartment() {
   inquirer.prompt([
-
+    {
+    type: 'input', 
+    name: 'deptid',
+    message: "What is the department's ID number?",
+    },
+    {
+    type: 'input', 
+    name: 'deptName',
+    message: "What is the department's name?",
+    },
   ])
+  .then((response) => {
+    const query = connection.query(
+    'INSERT INTO department SET ?',
+    {
+      id: response.deptid,
+      name: response.deptName,
+    },
+     (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} New department added!\n`);
+      start(); 
+    });
+    console.log(query.sql);
+  })
 };
 
 function addRole() {
   inquirer.prompt([
-
+    {
+    type: 'input', 
+    name: 'roleid',
+    message: "What is the role's ID number?",
+    },
+    {
+    type: 'input', 
+    name: 'title',
+    message: "What is the role's title?",
+    },
+    {
+    type: 'input', 
+    name: 'salary',
+    message: "What is the role's salary?",
+    },
+    {
+    type: 'input', 
+    name: 'deptid',
+    message: "What is the role's department ID number?",
+    },
   ])
+  .then((response) => {
+    const query = connection.query(
+    'INSERT INTO role SET ?',
+    {
+      id: response.roleid,
+      title: response.title,
+      salary: response.salary,
+      department_id: response.deptid,
+    },
+     (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} New role added!\n`);
+      start(); 
+    });
+    console.log(query.sql);
+  })
 };
 
 function updateRole() {
