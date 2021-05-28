@@ -46,11 +46,11 @@ function start() {
 
 function viewAllEmp() {
    const query =
-    'SELECT * FROM employee';
+    'SELECT * FROM employee AND role.title FROM role LEFT JOIN role ON employee.role_id = role.id';
   connection.query(query, (err, res) => {
     if (err) throw err;
-     res.forEach(({ id, first_name, last_name, role_id }) => 
-     console.log(`ID: ${id} || First Name: ${first_name} || Last Name: ${last_name} || Role ID: ${role_id}`));
+     res.forEach(({ id, first_name, last_name, title }) => 
+     console.log(`ID: ${id} || First Name: ${first_name} || Last Name: ${last_name} || Role Title: ${title}`));
     start();
   })
 };
