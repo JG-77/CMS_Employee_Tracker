@@ -52,8 +52,8 @@ function viewAllEmp() {
     LEFT JOIN employee manager ON manager.id = employee.manager_id;`;
   connection.query(query, (err, res) => {
     if (err) throw err;
-     res.forEach(({ ID, First_name, Last_name, Title, Salary, Manager }) => 
-     console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Role Title: ${Title} || Salary: ${Salary} || Manager: ${Manager}`));
+     res.forEach(({ ID, First_name, Last_name, Department, Title, Salary, Manager }) => 
+     console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Department: ${Department} || Title: ${Title} || Salary: ${Salary} || Manager: ${Manager}`));
     start();
   })
 };
@@ -88,13 +88,13 @@ function viewEmployeeByDept() {
               WHERE department.name != ?`, 
               [
                 {
-                name: response.dept,
+                name: chosendept.name,
                 },
               ],
               (err, res) => {
             if (err) throw err;
-            res.forEach(({ ID, First_name, Last_name, Department, Salary, Manager }) => 
-            console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Role Title: ${Department} || Salary: ${Salary} || Manager: ${Manager}`));
+            res.forEach(({ ID, First_name, Last_name, Department, Title, Salary, Manager }) => 
+            console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Department: ${Department} || Title: ${Title} || Salary: ${Salary} || Manager: ${Manager}`));
             start();
             })
           }
