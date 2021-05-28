@@ -14,6 +14,7 @@ const connection = mysql.createConnection({
   database: 'employee_DB',
 });
 
+//initial inquirer prompt function
 function start() {
   inquirer.prompt([
     {
@@ -43,11 +44,50 @@ function start() {
   })
 };
 
+function viewAllEmp() {
+  inquirer.prompt([
+
+  ])
+};
+
+function viewEmployeeByDept() {
+  inquirer.prompt([
+
+  ])
+};
+
+function viewEmployeeByMan() {
+  inquirer.prompt([
+
+  ])
+};
+
+function addEmployee() {
+  inquirer.prompt([
+
+  ])
+};
+
+function addDeptartment() {
+  inquirer.prompt([
+
+  ])
+};
+
+function addRole() {
+  inquirer.prompt([
+
+  ])
+};
+
+function updateRole() {
+  inquirer.prompt([
+
+  ])
+};
+
 connection.connect((err) => {
   if (err) throw err;
   console.log(`connected as id ${connection.threadId}`);
   start();
 });
-
-
-//connection.end(); // move to end of prompt function
