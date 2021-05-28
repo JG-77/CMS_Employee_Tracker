@@ -101,14 +101,55 @@ function viewEmployeeByDept() {
 
 function viewEmployeeByMan() {
   inquirer.prompt([
-
+    
   ])
 };
 
 function addEmployee() {
   inquirer.prompt([
-
+    {
+    type: 'input', 
+    name: 'id',
+    message: "What is the employee's ID number?",
+    },
+    {
+    type: 'input', 
+    name: 'firstName',
+    message: "What is the employee's first name?",
+    },
+    {
+    type: 'input', 
+    name: 'lastName',
+    message: "What is the employee's last name?",
+    },
+    {
+    type: 'input', 
+    name: 'roleid',
+    message: "What is the employee's role ID?",
+    },
+    {
+    type: 'input', 
+    name: 'managerid',
+    message: "What is the employee's manager ID?",
+    },
   ])
+  .then((response) => {
+    const query = connection.query(
+    'INSERT INTO employee SET ?',
+    {
+      id: response.id,
+      first_name: response.firstName,
+      last_name: response.lastName,
+      role_id: response.roleid,
+      manager_id: response.managerid,
+    },
+     (err, res) => {
+      if (err) throw err;
+      console.log(`${res.affectedRows} New employee added!\n`);
+      start(); 
+    });
+    console.log(query.sql);
+  })
 };
 
 function addDeptartment() {
