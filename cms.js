@@ -254,16 +254,16 @@ function updateRole() {
     //let chosenemployee;
     //results.forEach((empl) => {
       //if (empl.Full_name === response.emp) {
-        //chosenemployee = empl;
+        //chosenemployee = empl;                // commented out this portion since no longer seems useful
         const query = connection.query(
-        'UPDATE employee SET ? WHERE ?',
+        'UPDATE employee SET ? WHERE id=?', 
         [
           {
             role_id: response.roleid,
           },
-          {
-            id: employee.id,
-          },
+          // {
+          //   id: employee.id, // commented this out and added "id=?" line 259
+          // },
         ],       
         (error) => {
           if (error) throw err;
