@@ -230,7 +230,7 @@ function addRole() {
 
 // Updates a specific role for an employee
 function updateRole() {
-  connection.query(`SELECT *, CONCAT (employee.last_name, ', ', employee.first_name) AS Full_name FROM employee `, (err, results) => {
+  connection.query(`SELECT * FROM employee `, (err, results) => {
     if (err) throw err;
   inquirer.prompt([
     {
@@ -239,8 +239,8 @@ function updateRole() {
     choices() {
     const employeeArray = [];
     
-    results.forEach(({Full_name}) => {
-    employeeArray.push(Full_name); 
+    results.forEach(({emp}) => {
+    employeeArray.push({name: emp.Full_name, value: emp.id}); 
     });
     return employeeArray;
     },
@@ -264,7 +264,7 @@ function updateRole() {
             role_id: response.roleid,
           },
           {
-            Full_name: response.emp,
+            id: employee.id,
           },
         ],       
         (error) => {
