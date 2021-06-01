@@ -230,7 +230,7 @@ function addRole() {
 
 // Updates a specific role for an employee
 function updateRole() {
-  connection.query(`SELECT * FROM employee `, (err, results) => {
+  connection.query(`SELECT *, CONCAT (employee.last_name, ', ', employee.first_name) AS Full_name FROM employee `, (err, results) => {
     if (err) throw err;
   inquirer.prompt([
     {
@@ -239,8 +239,8 @@ function updateRole() {
     choices() {
     const employeeArray = [];
     
-    results.forEach(({emp}) => {
-    employeeArray.push({name: emp.Full_name, value: emp.id}); 
+    results.forEach(({emp}) => { //is this the right property? or "employee"
+    employeeArray.push({name: emp.Full_name, value: emp.id}); // trying to get full_name to show and id to be retieved
     });
     return employeeArray;
     },
