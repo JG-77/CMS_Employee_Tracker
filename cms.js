@@ -233,16 +233,17 @@ function addRole() {
 function updateRole() {
   connection.query(`SELECT *, CONCAT (employee.last_name, ', ', employee.first_name) AS Full_name FROM employee `, (err, results) => {
     if (err) throw err;
-    function choices() {
-    let employeeArray;
+    choices().then((value) => {
+    const employeeArray = [];
     results.forEach(({Full_name, id}) => { 
     employeeArray.push({Full_name, id}); // trying to get full_name to show and id to be retieved
     });
-    }
+    }).then((value) =>
+
   inquirer.prompt([
     {
     name: 'emp',
-    type: 'choice',
+    type: 'list',
     message: `Which employee's role would you like to edit?`,
     choices() {return employeeArray;}
     },
@@ -252,6 +253,7 @@ function updateRole() {
     message: "What is the this employee's new role ID number?",
     },
   ])
+  )
   .then((response) => {
     let chosenemployee;
     results.forEach((empl) => {
