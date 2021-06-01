@@ -240,7 +240,7 @@ function updateRole() {
     const employeeArray = [];
     
     results.forEach(({Full_name}) => {
-    employeeArray.push(Full_name); //how to combine last and first name?
+    employeeArray.push(Full_name); 
     });
     return employeeArray;
     },
@@ -253,32 +253,30 @@ function updateRole() {
     },
   ])
   .then((response) => {
-        let chosenemployee;
-        results.forEach((empl) => {
-          if (empl.Full_name === response.emp) {
-            chosenemployee = empl;
-            console.log(chosenemployee); //what's bugged here
-            console.log(results);
-          }
+    let chosenemployee;
+    results.forEach((empl) => {
+      if (empl.Full_name === response.emp) {
+        chosenemployee = empl;
+        const query = connection.query(
+        'UPDATE employee SET ? WHERE ?',
+        [
+          {
+            role_id: response.roleid,
+          },
+          {
+            Full_name: response.emp,
+          },
+        ],       
+        (error) => {
+          if (error) throw err;
+          console.log(`Employee's role successfully!`);
+          start();
         });
-          // if(chosenemployee.role_id == response.roleid) //find way to pass id
-          //   connection.query('UPDATE employee SET ? WHERE ?',
-          //     [
-          //     {
-          //       role_id: response.roleid,
-          //     },
-          //     {
-          //       Full_name: chosenemployee.emp,
-          //     },
-          //   ],
-            (error) => {
-              if (error) throw err;
-              console.log(`Employee's role successfully!`);
-              start();
-         }
-       // )
-      });
+        console.log(query.sql);
+      };
+    });
   });
+});
 };
 
 
