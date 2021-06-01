@@ -2,6 +2,7 @@ const mysql = require('mysql');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
+
 const connection = mysql.createConnection({
   host: 'localhost',
 
@@ -232,19 +233,18 @@ function addRole() {
 function updateRole() {
   connection.query(`SELECT *, CONCAT (employee.last_name, ', ', employee.first_name) AS Full_name FROM employee `, (err, results) => {
     if (err) throw err;
+    function choices() {
+    let employeeArray;
+    results.forEach(({Full_name, id}) => { 
+    employeeArray.push({Full_name, id}); // trying to get full_name to show and id to be retieved
+    });
+    }
   inquirer.prompt([
     {
     name: 'emp',
-    type: 'rawlist',
-    choices() {
-    const employeeArray = [];
-    
-    results.forEach(({emp}) => { //is this the right property? or "employee"
-    employeeArray.push({name: emp.Full_name, value: emp.id}); // trying to get full_name to show and id to be retieved
-    });
-    return employeeArray;
-    },
+    type: 'choice',
     message: `Which employee's role would you like to edit?`,
+    choices() {return employeeArray;}
     },
     {
     type: 'input', 
