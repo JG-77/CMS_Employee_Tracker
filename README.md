@@ -10,8 +10,9 @@
 
 ## Application Screenshots
 ---
+![schema.sql tables](https://user-images.githubusercontent.com/76461629/120417727-2efc9700-c314-11eb-8b01-a42aac9a321e.png)
 
-
+![all employees and app start() prompt](https://user-images.githubusercontent.com/76461629/120417736-32901e00-c314-11eb-96df-5efbddfe1541.png)
 
 ## Description
 ---
