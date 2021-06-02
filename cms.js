@@ -97,21 +97,21 @@ function viewEmployeeByDept() {
             start();
             })
           }
-        });//
+        });
     });
   });
 };
 
 // Displays employees by manager
 function viewEmployeeByMan() {
-  connection.query(`SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
+  connection.query(`SELECT DISTINCT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager, manager.id AS Managerid
         FROM employee 
         LEFT JOIN role on employee.role_id = role.id 
         LEFT JOIN department on role.department_id = department.id 
         LEFT JOIN employee manager ON manager.id = employee.manager_id`, (err, results) => {
     const managerArray = [];
-    results.forEach(({Manager, id}) => { 
-    var object = {name: Manager, value: id}
+    results.forEach(({Manager, Managerid}) => { 
+    var object = {name: Manager, value: Managerid}
     managerArray.push(object); 
     });  
     inquirer.prompt([
@@ -119,22 +119,17 @@ function viewEmployeeByMan() {
     name: 'manager',
     type: 'list',
     message: `Which manager's employee's would you like to view?`,
-    choices: managerArray, 
+    choices: managerArray.filter(({name}) => Boolean(name)), 
     },
     ])
      .then((response) => {
-      //  let chosenMan;
-      //   results.forEach((manager) => {
-      //     if (manager.id === response.manager) {
-      //       chosenMan = manager;
         const query = connection.query(
         `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
         FROM employee 
         LEFT JOIN role on employee.role_id = role.id 
         LEFT JOIN department on role.department_id = department.id 
         LEFT JOIN employee manager ON manager.id = employee.manager_id
-        WHERE employee.Manger=?`, 
-        // chosenMan.id,
+        WHERE employee.manager_id=?`, 
         [
           parseInt(response.manager)
         ],       
@@ -144,9 +139,7 @@ function viewEmployeeByMan() {
           console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Department: ${Department} || Title: ${Title} || Salary: ${Salary} || Manager: ${Manager}`));
           start();
         });
-        console.log(query.sql);
-        //}
-        //}); 
+        console.log(query.sql); 
       }
     ); 
   })
