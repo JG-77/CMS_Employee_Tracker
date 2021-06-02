@@ -123,7 +123,7 @@ function viewEmployeeByMan() {
     },
     ])
      .then((response) => {
-        const query = connection.query(
+     connection.query(
         `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
         FROM employee 
         LEFT JOIN role on employee.role_id = role.id 
@@ -138,8 +138,7 @@ function viewEmployeeByMan() {
           res.forEach(({ ID, First_name, Last_name, Department, Title, Salary, Manager }) => 
           console.log(`ID: ${ID} || First Name: ${First_name} || Last Name: ${Last_name} || Department: ${Department} || Title: ${Title} || Salary: ${Salary} || Manager: ${Manager}`));
           start();
-        });
-        console.log(query.sql); 
+        }); 
       }
     ); 
   })
@@ -171,7 +170,7 @@ function addEmployee() {
     {
     type: 'input', 
     name: 'managerid',
-    message: "What is the employee's manager ID?",
+    message: "What is the employee's manager's ID?",
     },
   ])
   .then((response) => {
@@ -312,3 +311,4 @@ connection.connect((err) => {
   console.log(`connected as id ${connection.threadId}`);
   start();
 });
+
