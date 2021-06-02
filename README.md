@@ -6,11 +6,9 @@
 
 [GitHub Link](https://github.com/JG-77/CMS_Employee_Tracker.git)
 
-[Application Demo Video pt1](https://drive.google.com/file/d/1UXvgnpR84cr73kxXPFW62W6BekY544aF/view?usp=sharing)
+[Application Demo Video pt1](https://drive.google.com/file/d/1uGjmJ54k1EDL0Dtd3exj2JM_9bAVsuFF/view?usp=sharing)
 
-
-[Application Demo Video pt2](https://drive.google.com/file/d/1uGjmJ54k1EDL0Dtd3exj2JM_9bAVsuFF/view?usp=sharing)
-
+[Application Demo Video pt2](https://drive.google.com/file/d/1UXvgnpR84cr73kxXPFW62W6BekY544aF/view?usp=sharing)
 
 [Application Demo Video pt3](https://drive.google.com/file/d/1DWIt0ui6htfznO1ffwabWi1GhQSXlTQO/view?usp=sharing)
 
