@@ -97,16 +97,20 @@ function viewEmployeeByDept() {
             start();
             })
           }
-        });
+        });//
     });
   });
 };
 
 // Displays employees by manager
 function viewEmployeeByMan() {
-  connection.query('SELECT *, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager FROM employee', (err, results) => {
+  connection.query(`SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
+        FROM employee 
+        LEFT JOIN role on employee.role_id = role.id 
+        LEFT JOIN department on role.department_id = department.id 
+        LEFT JOIN employee manager ON manager.id = employee.manager_id`, (err, results) => {
     const managerArray = [];
-    results.forEach(({Manager}) => { 
+    results.forEach(({Manager, id}) => { 
     var object = {name: Manager, value: id}
     managerArray.push(object); 
     });  
@@ -119,6 +123,10 @@ function viewEmployeeByMan() {
     },
     ])
      .then((response) => {
+      //  let chosenMan;
+      //   results.forEach((manager) => {
+      //     if (manager.id === response.manager) {
+      //       chosenMan = manager;
         const query = connection.query(
         `SELECT employee.id AS ID, employee.first_name AS First_name, employee.last_name AS Last_name, role.title AS Title, department.name AS Department, role.salary AS Salary, CONCAT (manager.Last_name, ', ', manager.First_name) AS Manager
         FROM employee 
@@ -126,6 +134,7 @@ function viewEmployeeByMan() {
         LEFT JOIN department on role.department_id = department.id 
         LEFT JOIN employee manager ON manager.id = employee.manager_id
         WHERE employee.Manger=?`, 
+        // chosenMan.id,
         [
           parseInt(response.manager)
         ],       
@@ -136,6 +145,8 @@ function viewEmployeeByMan() {
           start();
         });
         console.log(query.sql);
+        //}
+        //}); 
       }
     ); 
   })
